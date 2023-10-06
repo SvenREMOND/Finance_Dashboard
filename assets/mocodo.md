@@ -1,7 +1,9 @@
+Compte: id, nom
+com, 11 Transaction, 01 Compte
 Transaction: id, montant, date
-Appartenir, 11 Transaction, 1N Categorie
+cat, 11 Transaction, 01 Categorie
 Categorie: id, nom
 Sous-categorie, 01 Categorie, 01 Categorie
 
-Compte: id, nom, montant, date
-Investissement: id, nom, valeur, investi, date
+investissement, 0N Transaction, 1N Epargne: investi
+Epargne: id, nom
