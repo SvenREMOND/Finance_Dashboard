@@ -12,6 +12,22 @@ function getCompte() {
 	return data;
 }
 
+function addCompte(name, desc = "") {
+	db.serialize(() => {
+		db.run(
+			"INSERT INTO COMPTE (nom, description) VALUES ($name, $desc);",
+			{
+				$name: name,
+				$desc: desc,
+			},
+			(res, err) => {
+				if (err) console.log(err);
+			}
+		);
+	});
+}
+
 module.exports = {
 	getCompte,
+	addCompte,
 };

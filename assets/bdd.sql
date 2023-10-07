@@ -1,25 +1,27 @@
-CREATE TABLE IF NOT EXISTS
-    "CATEGORIE" (
+CREATE TABLE
+    IF NOT EXISTS "CATEGORIE" (
         "id" INTEGER PRIMARY KEY AUTOINCREMENT,
         "nom" TEXT NOT NULL,
         "parent_id" INTEGER,
         FOREIGN KEY ("parent_id") REFERENCES "CATEGORIE" ("id")
     );
 
-CREATE TABLE IF NOT EXISTS
-    "COMPTE" (
+CREATE TABLE
+    IF NOT EXISTS "COMPTE" (
         "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-        "nom" TEXT NOT NULL
+        "nom" TEXT NOT NULL,
+        "description" TEXT
     );
 
-CREATE TABLE IF NOT EXISTS
-    "EPARGNE" (
+CREATE TABLE
+    IF NOT EXISTS "EPARGNE" (
         "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-        "nom" TEXT NOT NULL
+        "nom" TEXT NOT NULL,
+        "description" TEXT
     );
 
-CREATE TABLE IF NOT EXISTS
-    "TRANSACTION" (
+CREATE TABLE
+    IF NOT EXISTS "TRANSACTION" (
         "id" INTEGER PRIMARY KEY AUTOINCREMENT,
         "montant" INTEGER NOT NULL,
         "date" TEXT NOT NULL,
@@ -29,8 +31,8 @@ CREATE TABLE IF NOT EXISTS
         FOREIGN KEY ("categorie_id") REFERENCES "CATEGORIE" ("id")
     );
 
-CREATE TABLE IF NOT EXISTS
-    "INVESTISSEMENT" (
+CREATE TABLE
+    IF NOT EXISTS "INVESTISSEMENT" (
         "transaction_id" INTEGER NOT NULL,
         "epargne_id" INTEGER NOT NULL,
         "investi" INTEGER,
@@ -38,3 +40,18 @@ CREATE TABLE IF NOT EXISTS
         FOREIGN KEY ("transaction_id") REFERENCES "TRANSACTION" ("id"),
         FOREIGN KEY ("epargne_id") REFERENCES "EPARGNE" ("id")
     );
+
+INSERT INTO
+    CATEGORIE (nom, parent_id)
+VALUES
+    ("Revenu", NULL),
+    ("Dépense", NULL);
+
+INSERT INTO
+    COMPTE (nom, description)
+VALUES
+    ("LCL", "Compte courant"),
+    ("Revolut", "Compte courant"),
+    ("Facture", "Pocket Revolut"),
+    ("Economie", "Coffre Revolut"),
+    ("Arrondie", "Coffre Revolut");
