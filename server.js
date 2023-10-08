@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const useragent = require("express-useragent");
+const { getDate } = require("./server/request");
 
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("server/finance.sqlite");
@@ -28,8 +29,13 @@ app.get("/", (req, res) => {
 
 	sendFile(res, "index");
 });
+
 app.get("/add-data", (req, res) => {
-	res.send("OK");
+	sendFile(res, "forms");
+});
+
+app.get("/get-dates", (req, res) => {
+	res.json(getDate());
 });
 
 app.listen(3000, () => {

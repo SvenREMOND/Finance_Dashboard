@@ -1,0 +1,36 @@
+main {
+	height: calc(100vh - 4rem - 2rem);
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: stretch;
+	overflow: hidden;
+}
+
+section {
+	cursor: pointer;
+
+	transition: all 0.2s linear;
+	-webkit-transition: all 0.2s linear;
+	-moz-transition: all 0.2s linear;
+	-ms-transition: all 0.2s linear;
+	-o-transition: all 0.2s linear;
+}
+
+section .label {
+	font-weight: bold;
+	font-size: 1.5rem;
+}
+
+section > div {
+	display: none;
+}
+
+section.active {
+	height: unset;
+	flex: 1;
+}
+
+section.active > div {
+	display: block;
+}

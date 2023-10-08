@@ -12,6 +12,17 @@ function getCompte() {
 	return data;
 }
 
+function getDate() {
+	let data = [];
+	db.serialize(() => {
+		db.each("SELECT DISTINCT date FROM 'TRANSACTION';", (err, row) => {
+			if (err) console.log(err);
+			data.push(row);
+		});
+	});
+	return data;
+}
+
 function addCompte(name, desc = "") {
 	db.serialize(() => {
 		db.run(
@@ -29,5 +40,6 @@ function addCompte(name, desc = "") {
 
 module.exports = {
 	getCompte,
+	getDate,
 	addCompte,
 };
