@@ -40,18 +40,3 @@ CREATE TABLE
         FOREIGN KEY ("transaction_id") REFERENCES "TRANSACTION" ("id"),
         FOREIGN KEY ("epargne_id") REFERENCES "EPARGNE" ("id")
     );
-
-INSERT INTO
-    CATEGORIE (nom, parent_id)
-VALUES
-    ("Revenu", NULL),
-    ("Dépense", NULL);
-
-INSERT INTO
-    COMPTE (nom, description)
-VALUES
-    ("LCL", "Compte courant"),
-    ("Revolut", "Compte courant"),
-    ("Facture", "Pocket Revolut"),
-    ("Economie", "Coffre Revolut"),
-    ("Arrondie", "Coffre Revolut");

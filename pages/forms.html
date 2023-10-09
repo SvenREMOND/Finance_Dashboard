@@ -189,14 +189,15 @@
 		<main>
 			<section>
 				<p class="label">Transaction</p>
-				<form method="POST" action="/add-transaction">
+				<form method="POST" action="/add-transaction" enctype="application/x-www-form-urlencoded">
 					<div class="field">
 						<label class="required">Catégorie</label>
+						<div class="transaction--categories"></div>
 					</div>
 
 					<div class="field half">
 						<label class="required" for="montant">Montant</label>
-						<input type="number" name="montant" id="montant" />
+						<input type="number" name="montant" id="montant" autocomplete="off" />
 					</div>
 
 					<div class="field half">
@@ -211,7 +212,7 @@
 			</section>
 			<section>
 				<p class="label">État des comptes</p>
-				<form method="POST" action="/add-etat">
+				<form method="POST" action="/add-etat" enctype="application/x-www-form-urlencoded">
 					<div class="field">
 						<label class="required"> Compte </label>
 						<ul class="options">
@@ -221,7 +222,7 @@
 
 					<div class="field half">
 						<label class="required" for="montant">Montant</label>
-						<input type="number" name="montant" id="montant" />
+						<input type="number" name="montant" id="montant" autocomplete="off" />
 					</div>
 
 					<div class="field half">
@@ -236,7 +237,7 @@
 			</section>
 			<section>
 				<p class="label">Investissement</p>
-				<form method="POST" action="/add-investissement">
+				<form method="POST" action="/add-investissement" enctype="application/x-www-form-urlencoded">
 					<div class="field">
 						<label class="required">Compte</label>
 						<ul class="options">
@@ -246,7 +247,7 @@
 
 					<div class="field half">
 						<label class="required" for="montant">Valeur</label>
-						<input type="number" name="montant" id="montant" />
+						<input type="number" name="montant" id="montant" autocomplete="off" />
 					</div>
 
 					<div class="field half">
@@ -266,7 +267,7 @@
 			</section>
 			<section>
 				<p class="label">Compte / Épargne</p>
-				<form method="POST" action="/add-account">
+				<form method="POST" action="/add-account" enctype="application/x-www-form-urlencoded" autocomplete="off">
 					<div class="field">
 						<label class="required">Type</label>
 						<ul class="options">
@@ -298,7 +299,7 @@
 			</section>
 			<section>
 				<p class="label">Catégorie</p>
-				<form method="POST" action="/add-categorie">
+				<form method="POST" action="/add-categorie" enctype="application/x-www-form-urlencoded" autocomplete="off">
 					<div class="field">
 						<label for="nom" class="required">Nom</label>
 						<input type="text" name="nom" id="nom" />
@@ -308,8 +309,6 @@
 						<label for="parent">Parent</label>
 						<select name="parent" id="parent">
 							<option value="" selected></option>
-							<option value="Test1">Test1</option>
-							<option value="Test2">Test2</option>
 						</select>
 					</div>
 
@@ -320,6 +319,6 @@
 			</section>
 		</main>
 
-		<script src="js/forms.js"></script>
+		<script src="js/forms.js" type="module"></script>
 	</body>
 </html>

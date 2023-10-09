@@ -184,6 +184,17 @@ form .option-input:checked + label {
 	color: var(--active);
 }
 
+.transaction--categories {
+	display: grid;
+	grid-auto-columns: 1fr 1fr;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+}
+
+.transaction--categories .field {
+	margin-bottom: 0;
+}
+
 .magic-focus {
 	position: absolute;
 	z-index: 0;
