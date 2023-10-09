@@ -190,33 +190,57 @@
 			<section>
 				<p class="label">Transaction</p>
 				<div>
-					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi quis quam soluta error voluptatum, recusandae aliquid vitae
-					impedit eius sed, fugit accusantium et consequatur animi nulla. Ullam, sequi! Sapiente, ullam!
+					<form></form>
 				</div>
 			</section>
 			<section>
 				<p class="label">Investissement</p>
 				<div>
-					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi quis quam soluta error voluptatum, recusandae aliquid vitae
-					impedit eius sed, fugit accusantium et consequatur animi nulla. Ullam, sequi! Sapiente, ullam!
+					<form></form>
 				</div>
 			</section>
 			<section>
-				<p class="label">Compte</p>
+				<p class="label">Compte / Épargne</p>
 				<div>
-					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi quis quam soluta error voluptatum, recusandae aliquid vitae
-					impedit eius sed, fugit accusantium et consequatur animi nulla. Ullam, sequi! Sapiente, ullam!
+					<form method="POST" action="/add-account">
+						<div class="field">
+							<label class="required">Type</label>
+							<ul class="options">
+								<li class="option">
+									<input class="option-input" type="radio" id="compte" name="compte" />
+									<label class="option-label" for="compte">Compte</label>
+								</li>
+								<li class="option">
+									<input class="option-input" type="radio" id="epargne" name="compte" />
+									<label class="option-label" for="epargne">Épargne</label>
+								</li>
+							</ul>
+						</div>
+
+						<p class="field">
+							<label for="nom" class="required">Nom</label>
+							<input type="text" name="nom" id="nom" />
+						</p>
+
+						<p class="field">
+							<label for="description">Description</label>
+							<textarea name="description" id="description"></textarea>
+						</p>
+
+						<p class="field">
+							<input class="button" type="submit" value="Ajouter" />
+						</p>
+					</form>
 				</div>
 			</section>
 			<section>
 				<p class="label">Catégorie</p>
 				<div>
-					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi quis quam soluta error voluptatum, recusandae aliquid vitae
-					impedit eius sed, fugit accusantium et consequatur animi nulla. Ullam, sequi! Sapiente, ullam!
+					<form></form>
 				</div>
 			</section>
 		</main>
 
-        <script src="js/forms.js"></script>
+		<script src="js/forms.js"></script>
 	</body>
 </html>

@@ -1,3 +1,8 @@
+body {
+	background-color: var(--bg);
+	color: var(--text);
+}
+
 main {
 	height: calc(100vh - 4rem - 2rem);
 	display: flex;
@@ -8,7 +13,10 @@ main {
 }
 
 section {
-	cursor: pointer;
+	height: 2rem;
+	overflow: hidden;
+	border-bottom: 1px solid var(--vibrant);
+	margin-bottom: 1rem;
 
 	transition: all 0.2s linear;
 	-webkit-transition: all 0.2s linear;
@@ -18,19 +26,190 @@ section {
 }
 
 section .label {
+	cursor: pointer;
 	font-weight: bold;
 	font-size: 1.5rem;
 }
 
-section > div {
-	display: none;
-}
-
 section.active {
-	height: unset;
 	flex: 1;
+	height: auto;
+	overflow: auto;
 }
 
-section.active > div {
+form {
+	max-width: 40rem;
+	margin: 0 auto;
+	position: relative;
+
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+
+label,
+input,
+textarea,
+form .option-input + label {
+	padding: 0.75em 1em;
+	appearance: none;
+	outline: none;
+	line-height: normal;
+	border-radius: 0;
+	border: none;
+	background: none;
 	display: block;
+}
+
+label {
+	font-weight: bold;
+	color: var(--text);
+	padding-top: 0;
+	padding-left: 0;
+	letter-spacing: 0.025em;
+	font-size: 1.125em;
+	line-height: 1.25;
+	position: relative;
+	z-index: 100;
+}
+
+label.required::after {
+	content: "\0020*";
+	color: var(--error);
+	font-weight: normal;
+	font-size: 0.75em;
+	vertical-align: top;
+}
+
+input,
+textarea,
+form .option-input + label {
+	font: inherit;
+	line-height: normal;
+	width: 100%;
+	box-sizing: border-box;
+	background: var(--static);
+	color: var(--text);
+	position: relative;
+}
+
+input::placeholder {
+	color: var(--text);
+}
+
+input:active,
+input:focus,
+textarea:active,
+textarea:focus,
+form .option-input:active + label,
+form .option-input:focus + label {
+	background-color: var(--focus);
+}
+
+.button {
+	font: inherit;
+	line-height: normal;
+	cursor: pointer;
+
+	background: var(--vibrant);
+	color: white;
+	font-weight: bold;
+	width: auto;
+	margin-left: auto;
+	font-weight: bold;
+	padding-left: 2rem;
+	padding-right: 2rem;
+
+	border: 2px solid var(--vibrant);
+}
+
+.button:hover,
+.button:focus,
+.button:active {
+	color: var(--text);
+	border-color: var(--text);
+}
+
+.button:active {
+	position: relative;
+	top: 1px;
+	left: 1px;
+}
+
+form .field {
+	width: 100%;
+	margin: 0 0 1.5em 0;
+}
+
+form .field.half {
+	@media screen and (min-width: 40em) {
+		width: calc(50% - 1px);
+	}
+}
+
+form .field.last {
+	margin-left: auto;
+}
+
+form textarea {
+	max-width: 100%;
+	resize: vertical;
+}
+
+form .options {
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+	overflow: hidden;
+}
+
+form .option {
+	float: left;
+	margin: 1px;
+}
+
+form .option-input {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+form .option-input + label {
+	display: inline-block;
+	width: auto;
+	color: var(--inactive);
+	position: relative;
+	user-select: none;
+	cursor: pointer;
+}
+
+form .option-input:focus + label,
+form .option-input:active + label {
+	color: var(--focus);
+}
+
+form .option-input:checked + label {
+	color: var(--active);
+}
+
+.magic-focus {
+	position: absolute;
+	z-index: 0;
+	width: 0;
+	pointer-events: none;
+	background: rgba(255, 255, 255, 0.15);
+
+	transition: top 0.2s, left 0.2s, width 0.2s;
+
+	backface-visibility: hidden;
+	transform-style: preserve-3d;
+	will-change: top, left, width;
+
+	transform-origin: 0 0;
 }
