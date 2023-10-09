@@ -16,6 +16,17 @@
 body {
 	font-family: "Titillium Web", sans-serif;
 	padding: 1rem;
+	background-color: var(--bg);
+	color: var(--text);
+}
+
+main {
+	height: calc(100vh - 4rem - 2rem);
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: stretch;
+	overflow: hidden;
 }
 
 .header {
@@ -71,4 +82,29 @@ body {
 
 .header__title a:hover::before {
 	background-color: var(--vibrant);
+}
+
+select {
+	padding: 0.75em 1em;
+	appearance: none;
+	outline: none;
+	line-height: normal;
+	border-radius: 0;
+	border: none;
+	background: none;
+	display: block;
+
+	font: inherit;
+	line-height: normal;
+	width: 100%;
+	box-sizing: border-box;
+	background: var(--static);
+	color: var(--text);
+	position: relative;
+	cursor: pointer;
+}
+
+select:active,
+select:focus {
+	background-color: var(--focus);
 }

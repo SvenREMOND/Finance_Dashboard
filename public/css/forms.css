@@ -1,19 +1,5 @@
-body {
-	background-color: var(--bg);
-	color: var(--text);
-}
-
-main {
-	height: calc(100vh - 4rem - 2rem);
-	display: flex;
-	flex-direction: column;
-	align-items: stretch;
-	justify-content: stretch;
-	overflow: hidden;
-}
-
 section {
-	height: 2rem;
+	height: 2.5rem;
 	overflow: hidden;
 	border-bottom: 1px solid var(--vibrant);
 	margin-bottom: 1rem;
