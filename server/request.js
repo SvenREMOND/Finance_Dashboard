@@ -116,6 +116,35 @@ function addEtatCompte(montant, date, compte, res) {
 	);
 }
 
+function addInvesstissement(epargne, valeur, date, invest, res) {
+	db.run(
+		"INSERT INTO 'TRANSACTION' (montant, date) VALUES ($montant, $date);",
+		{
+			$montant: valeur,
+			$date: date,
+		},
+		function (err) {
+			if (err) res.status(500).json(err);
+
+			db.run(
+				"INSERT INTO 'INVESTISSEMENT' (transaction_id, epargne_id, investi) VALUES ($transaction, $epargne, $investi);",
+				{
+					$transaction: this.lastID,
+					$epargne: epargne,
+					$investi: invest,
+				},
+				(err) => {
+					if (err) res.status(500).json(err);
+
+					res.redirect("/add-data");
+				}
+			);
+		}
+	);
+}
+
+// addInvesstissement(1, 200, "01-2023");
+
 function getDate(res) {
 	db.all("SELECT DISTINCT date FROM 'TRANSACTION';", (err, data) => {
 		if (err) res.status(500).json(err);
@@ -123,6 +152,7 @@ function getDate(res) {
 		res.status(200).json(data);
 	});
 }
+
 module.exports = {
 	getCategories,
 	addCategorie,
@@ -132,4 +162,5 @@ module.exports = {
 	addEpargne,
 	addTransaction,
 	addEtatCompte,
+	addInvesstissement,
 };

@@ -2,7 +2,17 @@ const express = require("express");
 const app = express();
 const useragent = require("express-useragent");
 const bodyParser = require("body-parser");
-const { getCategories, addCategorie, getCompte, getEpargne, addCompte, addEpargne, addTransaction, addEtatCompte } = require("./server/request");
+const {
+	getCategories,
+	addCategorie,
+	getCompte,
+	getEpargne,
+	addCompte,
+	addEpargne,
+	addTransaction,
+	addEtatCompte,
+	addInvesstissement,
+} = require("./server/request");
 
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("server/finance.sqlite");
@@ -88,6 +98,17 @@ app.post("/add-etat", (req, res) => {
 	let date = data.etat_date;
 
 	addEtatCompte(montant, date, compte, res);
+});
+
+app.post("/add-investissement", (req, res) => {
+	let data = req.body;
+
+	let epargne = data.invesstissement_compte;
+	let value = data.invesstissement_valeur;
+	let date = data.invesstissement_date;
+	let invest = data.invesstissement_montant;
+
+	addInvesstissement(epargne, value, date, invest, res);
 });
 
 app.post("/add-account", (req, res) => {

@@ -202,7 +202,14 @@
 
 					<div class="field half">
 						<label class="required" for="transaction_date">Date</label>
-						<input required type="month" name="transaction_date" id="transaction_date" pattern="[0-9]{4}-(0[1-9]|1[1,2])" />
+						<input
+							required
+							type="month"
+							name="transaction_date"
+							id="transaction_date"
+							pattern="\d{4}-(0\d|1\d)"
+							placeholder="2023-10"
+						/>
 					</div>
 
 					<div class="field">
@@ -227,7 +234,7 @@
 
 					<div class="field half">
 						<label class="required" for="etat_date">Date</label>
-						<input required type="month" name="etat_date" id="etat_date" pattern="[0-9]{4}-(0[1-9]|1[1,2])" />
+						<input required type="month" name="etat_date" id="etat_date" pattern="\d{4}-(0\d|1\d)" placeholder="2023-10" />
 					</div>
 
 					<div class="field">
@@ -252,11 +259,18 @@
 
 					<div class="field half">
 						<label class="required" for="invesstissement_date">Date</label>
-						<input required type="month" name="invesstissement_date" id="invesstissement_date" pattern="[0-9]{4}-(0[1-9]|1[1,2])" />
+						<input
+							required
+							type="month"
+							name="invesstissement_date"
+							id="invesstissement_date"
+							pattern="\d{4}-(0\d|1\d)"
+							placeholder="2023-10"
+						/>
 					</div>
 
 					<div class="field half">
-						<label class="required" for="invesstissement_montant">Montant investi</label>
+						<label for="invesstissement_montant">Montant investi</label>
 						<input type="number" name="invesstissement_montant" id="invesstissement_montant" />
 					</div>
 
@@ -268,7 +282,7 @@
 			<section>
 				<p class="label">Compte / Épargne</p>
 				<form method="POST" action="/add-account" enctype="application/x-www-form-urlencoded" autocomplete="off">
-					<div class="field">
+					<div class="field half">
 						<label class="required">Type</label>
 						<ul class="options">
 							<li class="option">
@@ -282,7 +296,7 @@
 						</ul>
 					</div>
 
-					<div class="field">
+					<div class="field half">
 						<label for="add_nom" class="required">Nom</label>
 						<input required type="text" name="add_nom" id="add_nom" />
 					</div>

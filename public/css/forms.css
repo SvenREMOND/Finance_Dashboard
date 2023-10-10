@@ -81,7 +81,7 @@ form .option-input + label {
 }
 
 input::placeholder {
-	color: var(--text);
+	opacity: 0.2;
 }
 
 input[type="number"] {
