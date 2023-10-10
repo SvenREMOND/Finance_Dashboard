@@ -84,6 +84,11 @@ input::placeholder {
 	color: var(--text);
 }
 
+input[type="number"] {
+	appearance: none;
+	-moz-appearance: textfield;
+}
+
 input:active,
 input:focus,
 textarea:active,
@@ -128,8 +133,8 @@ form .field {
 	margin: 0 0 1.5em 0;
 }
 
-form .field.half {
-	@media screen and (min-width: 40em) {
+@media sreen and (min-width: 10rem) {
+	form .field.half {
 		width: calc(50% - 1px);
 	}
 }

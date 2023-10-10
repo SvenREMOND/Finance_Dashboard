@@ -196,13 +196,13 @@
 					</div>
 
 					<div class="field half">
-						<label class="required" for="montant">Montant</label>
-						<input type="number" name="montant" id="montant" autocomplete="off" />
+						<label class="required" for="transaction_montant">Montant</label>
+						<input required type="number" name="transaction_montant" id="transaction_montant" autocomplete="off" />
 					</div>
 
 					<div class="field half">
-						<label class="required" for="date">Date</label>
-						<input type="month" name="date" id="date" />
+						<label class="required" for="transaction_date">Date</label>
+						<input required type="month" name="transaction_date" id="transaction_date" pattern="[0-9]{4}-(0[1-9]|1[1,2])" />
 					</div>
 
 					<div class="field">
@@ -215,19 +215,19 @@
 				<form method="POST" action="/add-etat" enctype="application/x-www-form-urlencoded">
 					<div class="field">
 						<label class="required"> Compte </label>
-						<ul class="options">
+						<ul class="options compte--liste">
 							<!-- Li des différents comptes  -->
 						</ul>
 					</div>
 
 					<div class="field half">
-						<label class="required" for="montant">Montant</label>
-						<input type="number" name="montant" id="montant" autocomplete="off" />
+						<label class="required" for="etat_montant">Montant</label>
+						<input required type="number" name="etat_montant" id="etat_montant" autocomplete="off" />
 					</div>
 
 					<div class="field half">
-						<label class="required" for="date">Date</label>
-						<input type="month" name="date" id="date" />
+						<label class="required" for="etat_date">Date</label>
+						<input required type="month" name="etat_date" id="etat_date" pattern="[0-9]{4}-(0[1-9]|1[1,2])" />
 					</div>
 
 					<div class="field">
@@ -239,25 +239,25 @@
 				<p class="label">Investissement</p>
 				<form method="POST" action="/add-investissement" enctype="application/x-www-form-urlencoded">
 					<div class="field">
-						<label class="required">Compte</label>
-						<ul class="options">
-							<!-- Li des différents comptes  -->
+						<label class="required">Ligne</label>
+						<ul class="options epargne--liste">
+							<!-- Li des différents épargne  -->
 						</ul>
 					</div>
 
 					<div class="field half">
-						<label class="required" for="montant">Valeur</label>
-						<input type="number" name="montant" id="montant" autocomplete="off" />
+						<label class="required" for="invesstissement_valeur">Valeur</label>
+						<input required type="number" name="invesstissement_valeur" id="invesstissement_valeur" autocomplete="off" />
 					</div>
 
 					<div class="field half">
-						<label class="required" for="date">Date</label>
-						<input type="month" name="date" id="date" />
+						<label class="required" for="invesstissement_date">Date</label>
+						<input required type="month" name="invesstissement_date" id="invesstissement_date" pattern="[0-9]{4}-(0[1-9]|1[1,2])" />
 					</div>
 
 					<div class="field half">
-						<label class="required" for="invest">Montant investi</label>
-						<input type="number" name="invest" id="invest" />
+						<label class="required" for="invesstissement_montant">Montant investi</label>
+						<input type="number" name="invesstissement_montant" id="invesstissement_montant" />
 					</div>
 
 					<div class="field half">
@@ -272,24 +272,24 @@
 						<label class="required">Type</label>
 						<ul class="options">
 							<li class="option">
-								<input class="option-input" type="radio" id="compte" name="compte" />
-								<label class="option-label" for="compte">Compte</label>
+								<input required class="option-input" type="radio" id="add_compte" name="add_account" value="add_compte" />
+								<label class="option-label" for="add_compte">Compte</label>
 							</li>
 							<li class="option">
-								<input class="option-input" type="radio" id="epargne" name="compte" />
-								<label class="option-label" for="epargne">Épargne</label>
+								<input required class="option-input" type="radio" id="add_epargne" name="add_account" value="add_epargne" />
+								<label class="option-label" for="add_epargne">Épargne</label>
 							</li>
 						</ul>
 					</div>
 
 					<div class="field">
-						<label for="nom" class="required">Nom</label>
-						<input type="text" name="nom" id="nom" />
+						<label for="add_nom" class="required">Nom</label>
+						<input required type="text" name="add_nom" id="add_nom" />
 					</div>
 
 					<div class="field">
-						<label for="description">Description</label>
-						<textarea name="description" id="description"></textarea>
+						<label for="add_description">Description</label>
+						<textarea name="add_description" id="add_description"></textarea>
 					</div>
 
 					<div class="field">
@@ -301,13 +301,13 @@
 				<p class="label">Catégorie</p>
 				<form method="POST" action="/add-categorie" enctype="application/x-www-form-urlencoded" autocomplete="off">
 					<div class="field">
-						<label for="nom" class="required">Nom</label>
-						<input type="text" name="nom" id="nom" />
+						<label for="categorie_nom" class="required">Nom</label>
+						<input required type="text" name="categorie_nom" id="categorie_nom" />
 					</div>
 
 					<div class="field half">
-						<label for="parent">Parent</label>
-						<select name="parent" id="parent">
+						<label for="categorie_parent">Parent</label>
+						<select name="categorie_parent" id="categorie_parent">
 							<option value="" selected></option>
 						</select>
 					</div>

@@ -1,3 +1,4 @@
+// Dépliage des sections
 let labels = document.querySelectorAll("section .label");
 
 labels.forEach((label) => {
@@ -10,11 +11,12 @@ labels.forEach((label) => {
 	});
 });
 
+// Récupération et ajout des categories dans les formulaires
 let categories = await fetch("/get-categories");
 categories = await categories.json();
 
 let transactionCategories = document.querySelector(".transaction--categories");
-let parentSelector = document.getElementById("parent");
+let parentSelector = document.getElementById("categorie_parent");
 for (const parentId in categories) {
 	if (Object.hasOwnProperty.call(categories, parentId)) {
 		const dataCategorie = categories[parentId];
@@ -35,15 +37,15 @@ for (const parentId in categories) {
 				let input = document.createElement("input");
 				input.classList.add("option-input");
 				input.type = "radio";
-				input.name = "categorie";
-				input.id = child.nom;
+				input.name = "transaction_categorie";
+				input.id = "transaction_" + child.nom;
 				input.value = child.id;
 				li.append(input);
 
 				let label = document.createElement("label");
 				label.classList.add("option-label");
 				label.textContent = child.nom;
-				label.setAttribute("for", child.nom);
+				label.setAttribute("for", "transaction_" + child.nom);
 				li.append(label);
 
 				ul.append(li);
@@ -61,6 +63,59 @@ for (const parentId in categories) {
 	}
 }
 
+// Récupération et ajout des comptes dans les formulaires
+let comptes = await fetch("/get-comptes");
+comptes = await comptes.json();
+
+let ulCompte = document.querySelector(".compte--liste");
+comptes.forEach((compte) => {
+	let li = document.createElement("li");
+	li.classList.add("option");
+
+	let input = document.createElement("input");
+	input.classList.add("option-input");
+	input.type = "radio";
+	input.name = "etat_compte";
+	input.id = "etat_" + compte.nom;
+	input.value = compte.id;
+	li.append(input);
+
+	let label = document.createElement("label");
+	label.classList.add("option-label");
+	label.textContent = compte.nom;
+	label.setAttribute("for", "etat_" + compte.nom);
+	li.append(label);
+
+	ulCompte.append(li);
+});
+
+// Récupération et ajout des epargne dans les formulaires
+let epargnes = await fetch("/get-epargnes");
+epargnes = await epargnes.json();
+
+let ulEpargne = document.querySelector(".epargne--liste");
+epargnes.forEach((epargne) => {
+	let li = document.createElement("li");
+	li.classList.add("option");
+
+	let input = document.createElement("input");
+	input.classList.add("option-input");
+	input.type = "radio";
+	input.name = "invesstissement_compte";
+	input.id = "invesstissement_" + epargne.nom;
+	input.value = epargne.id;
+	li.append(input);
+
+	let label = document.createElement("label");
+	label.classList.add("option-label");
+	label.textContent = epargne.nom;
+	label.setAttribute("for", "invesstissement_" + epargne.nom);
+	li.append(label);
+
+	ulEpargne.append(li);
+});
+
+// Focus des input
 class magicFocus {
 	reset;
 	focus;

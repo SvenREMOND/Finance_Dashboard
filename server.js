@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const useragent = require("express-useragent");
 const bodyParser = require("body-parser");
-const { getCategories, addCategorie } = require("./server/request");
+const { getCategories, addCategorie, getCompte, getEpargne, addCompte, addEpargne, addTransaction, addEtatCompte } = require("./server/request");
 
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("server/finance.sqlite");
@@ -59,19 +59,55 @@ app.get("/add-data", (req, res) => {
 // URLs de récupération des données
 app.get("/get-dates", (req, res) => {});
 
-app.get("/get-comptes", (req, res) => {});
+app.get("/get-comptes", (req, res) => {
+	getCompte(res);
+});
 
-app.get("/get-epargnes", (req, res) => {});
+app.get("/get-epargnes", (req, res) => {
+	getEpargne(res);
+});
 
 app.get("/get-categories", (req, res) => {
 	getCategories(res);
 });
 
 // URLs d'ajout de données
+app.post("/add-transaction", (req, res) => {
+	let data = req.body;
+	let categorie = data.transaction_categorie;
+	let montant = data.transaction_montant;
+	let date = data.transaction_date;
+
+	addTransaction(montant, date, categorie, res);
+});
+
+app.post("/add-etat", (req, res) => {
+	let data = req.body;
+	let compte = data.etat_compte;
+	let montant = data.etat_montant;
+	let date = data.etat_date;
+
+	addEtatCompte(montant, date, compte, res);
+});
+
+app.post("/add-account", (req, res) => {
+	let data = req.body;
+	let name = data.add_nom;
+	let desc = data.add_description;
+	if (data.add_account == "add_compte") {
+		addCompte(name, desc, res);
+	}
+	if (data.add_account == "add_epargne") {
+		addEpargne(name, desc, res);
+	}
+
+	res.status(500);
+});
+
 app.post("/add-categorie", (req, res) => {
 	let data = req.body;
-	let name = data.nom;
-	let parent = data.parent == "" ? null : data.parent;
+	let name = data.categorie_nom;
+	let parent = data.categorie_parent == "" ? null : data.categorie_parent;
 	addCategorie(name, parent, res);
 });
 
