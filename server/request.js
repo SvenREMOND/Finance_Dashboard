@@ -163,4 +163,5 @@ module.exports = {
 	addTransaction,
 	addEtatCompte,
 	addInvesstissement,
+	getDate,
 };

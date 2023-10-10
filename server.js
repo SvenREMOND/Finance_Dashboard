@@ -12,6 +12,7 @@ const {
 	addTransaction,
 	addEtatCompte,
 	addInvesstissement,
+	getDate,
 } = require("./server/request");
 
 const sqlite3 = require("sqlite3").verbose();
@@ -67,7 +68,9 @@ app.get("/add-data", (req, res) => {
 });
 
 // URLs de récupération des données
-app.get("/get-dates", (req, res) => {});
+app.get("/get-dates", (req, res) => {
+	getDate(res);
+});
 
 app.get("/get-comptes", (req, res) => {
 	getCompte(res);
