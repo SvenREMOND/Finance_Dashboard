@@ -3,6 +3,7 @@ INSERT INTO
 VALUES
     ("Revenu", NULL),
     ("Dépense", NULL),
+    ("Etat", NULL),
     ("Salaire", 1),
     ("Virement Elena", 1),
     ("Autre", 1),
@@ -12,7 +13,9 @@ VALUES
     ("Activités", 2),
     ("Chats", 2),
     ("Frais Bancaires", 2),
-    ("Autre", 2);
+    ("Autre", 2),
+    ("Compte", 3),
+    ("Epargne", 3);
 
 INSERT INTO
     'COMPTE' (nom, description)
