@@ -89,7 +89,7 @@ function addTransaction(montant, date, cat, res) {
 		"INSERT INTO 'TRANSACTION' (montant, date, categorie_id) VALUES ($montant, $date, $categorie);",
 		{
 			$montant: montant,
-			$date: date,
+			$date: date + "-01",
 			$categorie: cat,
 		},
 		(err) => {
@@ -105,7 +105,7 @@ function addEtatCompte(montant, date, compte, res) {
 		"INSERT INTO 'TRANSACTION' (montant, date, compte_id) VALUES ($montant, $date, $compte);",
 		{
 			$montant: montant,
-			$date: date,
+			$date: date + "-01",
 			$compte: compte,
 		},
 		(err) => {
@@ -121,7 +121,7 @@ function addInvesstissement(epargne, valeur, date, invest, res) {
 		"INSERT INTO 'TRANSACTION' (montant, date) VALUES ($montant, $date);",
 		{
 			$montant: valeur,
-			$date: date,
+			$date: date + "-01",
 		},
 		function (err) {
 			if (err) res.status(500).json(err);
@@ -142,8 +142,6 @@ function addInvesstissement(epargne, valeur, date, invest, res) {
 		}
 	);
 }
-
-// addInvesstissement(1, 200, "01-2023");
 
 function getDate(res) {
 	db.all("SELECT DISTINCT date FROM 'TRANSACTION';", (err, data) => {
