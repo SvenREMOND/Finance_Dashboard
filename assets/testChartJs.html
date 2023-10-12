@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div>
+			<canvas width="800px" height="800px" id="myChart"></canvas>
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+		<script>
+			const ctx = document.getElementById("myChart");
+
+			// const data1 = [
+			//     { year: 2010, count: 10 },
+			//     { year: 2011, count: 20 },
+			//     { year: 2012, count: 15 },
+			//     { year: 2013, count: 25 },
+			//     { year: 2014, count: 22 },
+			//     { year: 2015, count: 30 },
+			//     { year: 2016, count: 28 }
+			// ];
+			// const data2 = [
+			//     { year: 2010, count: 28 },
+			//     { year: 2011, count: 30 },
+			//     { year: 2012, count: 22 },
+			//     { year: 2013, count: 25 },
+			//     { year: 2014, count: 15 },
+			//     { year: 2015, count: 20 },
+			//     { year: 2016, count: 10 }
+			// ];
+
+			// new Chart(ctx, {
+			//     type: "bar",
+			//     data: {
+			//         labels: data1.map((row) => row.year), // Nom des colonnes
+			//         datasets: [
+			//             {
+			//                 label: "Data 1", // Nom de la donnée
+			//                 data: data1.map((row) => row.count) // Valeurs pour chaque colonnes
+			//             },
+			//             {
+			//                 label: "Data 2", // Nom de la donnée
+			//                 data: data2.map((row) => row.count) // Valeurs pour chaque colonnes
+			//             }
+			//         ]
+			//     }
+			// });
+
+			// const data = {
+			//     labels: ["Red", "Blue", "Yellow"],
+			//     datasets: [
+			//         {
+			//             label: "My First Dataset",
+			//             data: [300, 50, 100]
+			//         },
+			//         {
+			//             label: "My Second Dataset",
+			//             data: [100, 50, 300]
+			//         }
+			//     ]
+			// };
+			// new Chart(ctx, {
+			//     type: "doughnut",
+			//     data,
+			//     options: {
+			//         responsive: false
+			//     }
+			// });
+
+			new Chart(ctx, {
+				data: {
+					labels: ["January", "February", "March", "April"],
+					datasets: [
+						{
+							type: "bar",
+							label: "Bar Dataset",
+							data: [10, 20, 30, 40],
+						},
+						{
+							type: "line",
+							label: "Line Dataset",
+							data: [50, 50, 50, 50],
+						},
+					],
+				},
+				options: {
+					responsive: false,
+					interaction: {
+						intersect: false,
+						mode: "index",
+					},
+				},
+			});
+		</script>
+	</body>
+</html>

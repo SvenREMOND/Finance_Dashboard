@@ -16,5 +16,13 @@
 	},
 	"devDependencies": {
 		"nodemon": "^3.0.1"
+	},
+	"nodemonConfig": {
+		"watch": [
+			"*/**/*.js"
+		],
+		"ignore": [
+			"public/**/*.js"
+		]
 	}
 }

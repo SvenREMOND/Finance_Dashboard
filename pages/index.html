@@ -39,7 +39,9 @@
 
 		<main>
 			<div class="tabs">
-				<section class="active" id="synthese"></section>
+				<section class="active" id="synthese">
+					<canvas width="600" height="600" id="repartitionPatrimoine"></canvas>
+				</section>
 				<section id="depenses"></section>
 				<section id="invest"></section>
 			</div>
@@ -52,5 +54,7 @@
 		</main>
 
 		<script src="js/index.js" type="module"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<script src="js/graph.js" type="module"></script>
 	</body>
 </html>
