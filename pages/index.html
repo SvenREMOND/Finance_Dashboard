@@ -6,6 +6,9 @@
 		<link rel="stylesheet" href="css/reset.css" />
 		<link rel="stylesheet" href="css/base.css" />
 		<link rel="stylesheet" href="css/dash.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/style.css" />
 		<title>Dashboard</title>
 	</head>
 	<body>
@@ -23,24 +26,15 @@
 				</a>
 			</div>
 
-			<div class="header__selector">
-				<div>
-					<select name="from" id="from">
-						<option value="" selected>Date de début</option>
-					</select>
-				</div>
-				<div>
-					<select name="to" id="to">
-						<option value="" selected>Date de fin</option>
-					</select>
-				</div>
+			<div>
+				<input id="selector" />
 			</div>
 		</div>
 
 		<main>
 			<div class="tabs">
 				<section class="active" id="synthese">
-					<canvas width="600" height="600" id="repartitionPatrimoine"></canvas>
+					<canvas width="1200" height="400" id="repartitionPatrimoine"></canvas>
 				</section>
 				<section id="depenses"></section>
 				<section id="invest"></section>
@@ -53,8 +47,10 @@
 			</div>
 		</main>
 
-		<script src="js/index.js" type="module"></script>
+		<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+		<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/index.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-		<script src="js/graph.js" type="module"></script>
+		<script src="js/index.js" type="module"></script>
 	</body>
 </html>

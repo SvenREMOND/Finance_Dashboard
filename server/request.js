@@ -151,6 +151,62 @@ function getDate(res) {
 	});
 }
 
+function getGraph1(startDate, endDate, res) {
+	db.all(
+		"SELECT T.date, T.montant, CAT.nom AS `categorie` FROM `TRANSACTION` T INNER JOIN `CATEGORIE` C ON T.categorie_id = C.id INNER JOIN `CATEGORIE` CAT ON C.parent_id = CAT.id WHERE strftime ('%s', T.date) BETWEEN strftime ('%s', '" +
+			startDate +
+			"') AND strftime  ('%s', '" +
+			endDate +
+			"') AND C.nom != 'Epargne' ORDER BY T.date ASC;",
+		(err, data) => {
+			if (err) res.status(500).json(err);
+			let result = {};
+
+			let dates = data.map((val) => {
+				let date = new Date(Date.UTC(val.date.split("-")[0], parseInt(val.date.split("-")[1], 10) - 1));
+				return new Intl.DateTimeFormat("fr-FR", {
+					year: "numeric",
+					month: "short",
+				}).format(date);
+			});
+			dates = dates.filter(onlyUnique);
+			result.labels = dates;
+
+			let datasets = [];
+			let depense = {};
+			depense.label = "Dépense";
+			depense.type = "bar";
+			depense.data = [];
+			data.forEach((row) => {
+				if (row.categorie == depense.label) depense.data.push(row.montant);
+			});
+			datasets.push(depense);
+
+			let revenue = {};
+			revenue.label = "Revenu";
+			revenue.type = "bar";
+			revenue.data = [];
+			data.forEach((row) => {
+				if (row.categorie == revenue.label) revenue.data.push(row.montant);
+			});
+			datasets.push(revenue);
+
+			let etat = {};
+			etat.label = "Etat";
+			etat.type = "line";
+			etat.data = [];
+			data.forEach((row) => {
+				if (row.categorie == etat.label) etat.data.push(row.montant);
+			});
+			datasets.push(etat);
+
+			result.datasets = datasets;
+
+			res.status(200).json(result);
+		}
+	);
+}
+
 module.exports = {
 	getCategories,
 	addCategorie,
@@ -162,4 +218,9 @@ module.exports = {
 	addEtatCompte,
 	addInvesstissement,
 	getDate,
+	getGraph1,
 };
+
+function onlyUnique(value, index, array) {
+	return array.indexOf(value) === index;
+}

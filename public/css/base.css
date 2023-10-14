@@ -4,13 +4,13 @@
 	--bg: #111111;
 
 	--text: white;
-	--vibrant: #4bc0c0;
+	--vibrant: #23597e;
 
 	--static: #222222;
 	--focus: #4e4e4e;
 	--active: white;
 	--inactive: #4e4e4e;
-	--error: #e8474c;
+	--error: #883a4a;
 }
 
 body {

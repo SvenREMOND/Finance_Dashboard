@@ -13,6 +13,7 @@ const {
 	addEtatCompte,
 	addInvesstissement,
 	getDate,
+	getGraph1,
 } = require("./server/request");
 
 const sqlite3 = require("sqlite3").verbose();
@@ -82,6 +83,12 @@ app.get("/get-epargnes", (req, res) => {
 
 app.get("/get-categories", (req, res) => {
 	getCategories(res);
+});
+
+// Donnée des graphs
+app.get("/data/graph1", (req, res) => {
+	let data = req.query;
+	getGraph1(data.startDate, data.endDate, res);
 });
 
 // URLs d'ajout de données

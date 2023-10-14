@@ -5,10 +5,40 @@ main {
 	align-items: stretch;
 }
 
-.header__selector {
-	display: flex;
-	flex-direction: row;
-	gap: 1rem;
+span.flatpickr-monthSelect-month {
+	border-radius: 50px;
+	-webkit-border-radius: 50px;
+	-moz-border-radius: 50px;
+	-ms-border-radius: 50px;
+	-o-border-radius: 50px;
+}
+
+.flatpickr-monthSelect-month.flatpickr-disabled {
+	background-color: var(--error);
+}
+
+.header input {
+	padding: 0.75em 1em;
+	appearance: none;
+	outline: none;
+	line-height: normal;
+	border-radius: 0;
+	border: none;
+	background: none;
+	display: block;
+
+	font: inherit;
+	line-height: normal;
+	/* width: 100%; */
+	box-sizing: border-box;
+	background: var(--static);
+	color: var(--text) !important;
+	position: relative;
+}
+
+.header input:focus,
+.header input:active {
+	background: rgba(255, 255, 255, 0.15);
 }
 
 .tabs {
