@@ -14,6 +14,7 @@ const {
 	addInvesstissement,
 	getDate,
 	getGraph1,
+	getKpi1,
 } = require("./server/request");
 
 const sqlite3 = require("sqlite3").verbose();
@@ -83,6 +84,12 @@ app.get("/get-epargnes", (req, res) => {
 
 app.get("/get-categories", (req, res) => {
 	getCategories(res);
+});
+
+// Donnée des kpi
+app.get("/data/kpi1", (req, res) => {
+	let data = req.query;
+	getKpi1(data.startDate, data.endDate, res);
 });
 
 // Donnée des graphs

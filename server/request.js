@@ -207,6 +207,19 @@ function getGraph1(startDate, endDate, res) {
 	);
 }
 
+function getKpi1(startDate, endDate, res) {
+	db.all(
+		"SELECT SUM(T.montant) AS 'patrimoine' FROM `TRANSACTION` T INNER JOIN `CATEGORIE` C ON T.categorie_id = C.id INNER JOIN `CATEGORIE` CAT ON C.parent_id = CAT.id WHERE strftime ('%s', T.date) == strftime ('%s', " +
+			endDate +
+			") AND CAT.id == 3;",
+		(err, data) => {
+			if (err) res.status(500).json(err);
+
+			res.status(200).json(data[0].patrimoine);
+		}
+	);
+}
+
 module.exports = {
 	getCategories,
 	addCategorie,
@@ -219,6 +232,7 @@ module.exports = {
 	addInvesstissement,
 	getDate,
 	getGraph1,
+	getKpi1,
 };
 
 function onlyUnique(value, index, array) {
