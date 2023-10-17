@@ -31,7 +31,7 @@ span.flatpickr-monthSelect-month {
 	line-height: normal;
 	/* width: 100%; */
 	box-sizing: border-box;
-	background: var(--static);
+	background: var(--inactive);
 	color: var(--text) !important;
 	position: relative;
 }
@@ -99,7 +99,7 @@ span.flatpickr-monthSelect-month {
 
 .kpi {
 	background-color: var(--focus);
-	padding: 0.7rem;
+	padding: 0.5rem 1rem;
 
 	border-radius: 10px;
 	-webkit-border-radius: 10px;
@@ -118,18 +118,26 @@ span.flatpickr-monthSelect-month {
 	min-width: 1rem;
 }
 
-.kpi--value::after {
-	content: " €";
-}
-
-.kpi--value__epargne::after {
-	content: " %";
+.h-full {
+	height: 100%;
 }
 
 .flex {
 	display: flex;
 }
 
+.flex-col {
+	flex-direction: column;
+}
+
+.flex-1 {
+	flex: 1;
+}
+
 .justify-between {
 	justify-content: space-between;
+}
+
+.mb {
+	margin-bottom: 1rem;
 }

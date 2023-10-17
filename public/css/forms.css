@@ -174,7 +174,7 @@ form .option-input {
 form .option-input + label {
 	display: inline-block;
 	width: auto;
-	color: var(--inactive);
+	color: var(--focus);
 	position: relative;
 	user-select: none;
 	cursor: pointer;

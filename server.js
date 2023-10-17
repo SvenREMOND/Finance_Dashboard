@@ -14,7 +14,9 @@ const {
 	addInvesstissement,
 	getDate,
 	getGraph1,
-	getKpi1,
+	getPatrimoine,
+	getRevenuMoy,
+	getDepenseMoy,
 } = require("./server/request");
 
 const sqlite3 = require("sqlite3").verbose();
@@ -87,13 +89,23 @@ app.get("/get-categories", (req, res) => {
 });
 
 // Donnée des kpi
-app.get("/data/kpi1", (req, res) => {
+app.get("/data/kpi/patrimoine", (req, res) => {
 	let data = req.query;
-	getKpi1(data.startDate, data.endDate, res);
+	getPatrimoine(data.startDate, data.endDate, res);
+});
+
+app.get("/data/kpi/revenu-moyen", (req, res) => {
+	let data = req.query;
+	getRevenuMoy(data.startDate, data.endDate, res);
+});
+
+app.get("/data/kpi/depense-moyen", (req, res) => {
+	let data = req.query;
+	getDepenseMoy(data.startDate, data.endDate, res);
 });
 
 // Donnée des graphs
-app.get("/data/graph1", (req, res) => {
+app.get("/data/graph/1", (req, res) => {
 	let data = req.query;
 	getGraph1(data.startDate, data.endDate, res);
 });

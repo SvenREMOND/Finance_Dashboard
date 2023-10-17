@@ -1,5 +1,4 @@
 // const { Chart } = require("chart.js");
-// const flatpickr = require("flatpickr");
 
 let tabs = document.querySelector(".tabs");
 let tabSynthese = document.querySelector("[data-tab=synthese]");
@@ -51,42 +50,48 @@ let datePicker = flatpickr("#selector", {
 		}),
 	],
 	onReady: async function (Dates, dateStr, instance) {
-		let selectedDates = dateStr.split(" au ");
+		kpis.push(await createKpi("patrimoine", "/data/kpi/patrimoine", dateStr, "currency"));
+		kpis.push(await createKpi("revenuMoy", "/data/kpi/revenu-moyen", dateStr, "currency"));
+		kpis.push(await createKpi("depenseMoy", "/data/kpi/depense-moyen", dateStr, "currency"));
 
-		kpis.push(await createKpi("patrimoine", "/data/kpi1", selectedDates[0], selectedDates[1]));
-
-		graphs.push(await createGraph("repartitionPatrimoine", "/data/graph1", selectedDates[0], selectedDates[1]));
+		graphs.push(await createGraph("repartitionPatrimoine", "/data/graph/1", dateStr));
 	},
 	onClose: function (Dates, dateStr, instance) {
-		let selectedDates = dateStr.split(" au ");
-
 		graphs.forEach(async (graph) => {
-			await refrechGraph(graph, selectedDates[0], selectedDates[1]);
+			await refrechGraph(graph, dateStr);
 		});
 		kpis.forEach(async (kpi) => {
-			await refrechKpi(kpi, selectedDates[0], selectedDates[1]);
+			await refrechKpi(kpi, dateStr);
 		});
 	},
 });
 
-async function createGraph(canvaId, fetchUrl, startDate, endDate) {
+async function createGraph(canvaId, fetchUrl, dates, type = "") {
 	Chart.defaults.color = "#ffffff";
 	Chart.defaults.font.family = '"Titillium Web", sans-serif';
 	Chart.defaults.plugins.tooltip.backgroundColor = "#ffffff";
 	Chart.defaults.plugins.tooltip.bodyColor = "#000000";
 	Chart.defaults.plugins.tooltip.titleColor = "#000000";
+	Chart.defaults.scale.grid.color = "rgba(255, 255, 255, 0.1)";
 
-	let data = await getData(fetchUrl, startDate, endDate);
-	let graph = new Chart(document.getElementById(canvaId), {
-		data,
-		options: {
-			responsive: false,
-			interaction: {
-				intersect: false,
-				mode: "index",
-			},
+	let data = await getData(fetchUrl, dates);
+
+	let ctx = document.getElementById(canvaId);
+	ctx.width = ctx.parentElement.offsetWidth;
+	ctx.height = ctx.parentElement.offsetHeight;
+
+	let param = {};
+	param.options = {
+		responsive: false,
+		interaction: {
+			intersect: false,
+			mode: "index",
 		},
-	});
+	};
+	if (type != "") param.type = type;
+	param.data = data;
+
+	let graph = new Chart(ctx, param);
 
 	graph.update();
 
@@ -96,40 +101,75 @@ async function createGraph(canvaId, fetchUrl, startDate, endDate) {
 	};
 }
 
-async function refrechGraph(graph, startDate, endDate) {
+async function refrechGraph(graph, dates) {
 	let url = graph.url;
 	let chart = graph.chart;
 
-	let data = await getData(url, startDate, endDate);
+	let data = await getData(url, dates);
 
 	chart.data = data;
 
 	chart.update();
 }
 
-async function createKpi(elementId, fetchUrl, startDate, endDate) {
-	let data = await getData(fetchUrl, startDate, endDate);
+async function createKpi(elementId, fetchUrl, dates, type) {
+	let data = await getData(fetchUrl, dates);
 
 	if (!data) data = "No data";
 
 	let element = document.getElementById("kpi_" + elementId).querySelector(".kpi--value");
-	element.textContent = data;
+	switch (type) {
+		case "currency":
+			element.textContent = new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(data);
+			break;
+
+		case "percent":
+			element.textContent = new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(data);
+			break;
+
+		default:
+			break;
+	}
 
 	return {
 		url: fetchUrl,
 		element,
+		type,
 	};
 }
 
-async function refrechKpi(kpi, startDate, endDate) {
+async function refrechKpi(kpi, dates) {
 	let url = kpi.url;
 	let element = kpi.element;
 
-	let data = await getData(url, startDate, endDate);
+	let data = await getData(url, dates);
+
+	if (!data) data = "No data";
+
+	switch (kpi.type) {
+		case "currency":
+			element.textContent = new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(data);
+			break;
+
+		case "percent":
+			element.textContent = new Intl.NumberFormat("fr-FR", { style: "percent" }).format(data);
+			break;
+
+		default:
+			break;
+	}
 }
 
-async function getData(url, startDate, endDate) {
-	let data = await fetch(url + "?startDate=" + startDate + "&endDate=" + endDate);
+async function getData(url, dates) {
+	let selectedDates = [];
+	if (dates.includes("au")) {
+		selectedDates = dates.split(" au ");
+	} else {
+		selectedDates.push(dates);
+		selectedDates.push(dates);
+	}
+
+	let data = await fetch(url + "?startDate=" + selectedDates[0] + "&endDate=" + selectedDates[1]);
 	data = await data.json();
 	return data;
 }

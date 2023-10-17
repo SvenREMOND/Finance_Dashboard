@@ -34,29 +34,33 @@
 		<main>
 			<div class="tabs">
 				<section class="active" id="synthese">
-					<div class="flex justify-between">
-						<div class="kpi" id="kpi_patrimoine">
-							<p class="kpi--title">Patrimoine total</p>
-							<p class="kpi--value"></p>
+					<div class="h-full flex flex-col">
+						<div class="flex justify-between mb">
+							<div class="kpi" id="kpi_patrimoine">
+								<p class="kpi--title">Patrimoine total</p>
+								<p class="kpi--value"></p>
+							</div>
+
+							<div class="kpi" id="kpi_revenuMoy">
+								<p class="kpi--title">Revenus (moy)</p>
+								<p class="kpi--value"></p>
+							</div>
+
+							<div class="kpi" id="kpi_depenseMoy">
+								<p class="kpi--title">Dépenses (moy)</p>
+								<p class="kpi--value"></p>
+							</div>
+
+							<div class="kpi" id="kpi_tauxEpargne">
+								<p class="kpi--title">Taux d'épargne</p>
+								<p class="kpi--value"></p>
+							</div>
 						</div>
 
-						<div class="kpi" id="kpi_revenu">
-							<p class="kpi--title">Revenus</p>
-							<p class="kpi--value"></p>
-						</div>
-
-						<div class="kpi" id="kpi_depense">
-							<p class="kpi--title">Dépenses</p>
-							<p class="kpi--value"></p>
-						</div>
-
-						<div class="kpi" id="kpi_tauxEpargne">
-							<p class="kpi--title">Taux d'épargne</p>
-							<p class="kpi--value kpi--value__epargne"></p>
+						<div class="flex-1">
+							<canvas width="1200" height="400" id="repartitionPatrimoine"></canvas>
 						</div>
 					</div>
-
-					<canvas width="1200" height="400" id="repartitionPatrimoine"></canvas>
 				</section>
 				<section id="revenus"></section>
 				<section id="depenses"></section>

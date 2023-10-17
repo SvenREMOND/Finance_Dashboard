@@ -3,7 +3,9 @@ SELECT
     T.date,
     T.montant,
     CAT.nom AS `categorie`,
-    C.nom AS `sous-categorie`
+    CAT.id AS `categorie_id`,
+    C.nom AS `sous-categorie`,
+    C.id AS `sous-categorie_id`
 FROM
     `TRANSACTION` T
     INNER JOIN `CATEGORIE` C ON T.categorie_id = C.id

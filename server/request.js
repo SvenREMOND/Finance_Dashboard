@@ -207,15 +207,45 @@ function getGraph1(startDate, endDate, res) {
 	);
 }
 
-function getKpi1(startDate, endDate, res) {
+function getPatrimoine(startDate, endDate, res) {
 	db.all(
-		"SELECT SUM(T.montant) AS 'patrimoine' FROM `TRANSACTION` T INNER JOIN `CATEGORIE` C ON T.categorie_id = C.id INNER JOIN `CATEGORIE` CAT ON C.parent_id = CAT.id WHERE strftime ('%s', T.date) == strftime ('%s', " +
+		"SELECT SUM(T.montant) AS 'patrimoine' FROM `TRANSACTION` T INNER JOIN `CATEGORIE` C ON T.categorie_id = C.id INNER JOIN `CATEGORIE` CAT ON C.parent_id = CAT.id WHERE strftime ('%s', T.date) == strftime ('%s', '" +
 			endDate +
-			") AND CAT.id == 3;",
+			"') AND CAT.id == 3;",
 		(err, data) => {
 			if (err) res.status(500).json(err);
 
 			res.status(200).json(data[0].patrimoine);
+		}
+	);
+}
+
+function getRevenuMoy(startDate, endDate, res) {
+	db.all(
+		"SELECT AVG(T.montant) AS 'revenu' FROM `TRANSACTION` T INNER JOIN `CATEGORIE` C ON T.categorie_id = C.id INNER JOIN `CATEGORIE` CAT ON C.parent_id = CAT.id WHERE (strftime ('%s', T.date) BETWEEN strftime ('%s', '" +
+			startDate +
+			"') AND strftime ('%s', '" +
+			endDate +
+			"')) AND CAT.id == 1;",
+		(err, data) => {
+			if (err) res.status(500).json(err);
+
+			res.status(200).json(data[0].revenu);
+		}
+	);
+}
+
+function getDepenseMoy(startDate, endDate, res) {
+	db.all(
+		"SELECT AVG(T.montant) AS 'depense' FROM `TRANSACTION` T INNER JOIN `CATEGORIE` C ON T.categorie_id = C.id INNER JOIN `CATEGORIE` CAT ON C.parent_id = CAT.id WHERE (strftime ('%s', T.date) BETWEEN strftime ('%s', '" +
+			startDate +
+			"') AND strftime ('%s', '" +
+			endDate +
+			"')) AND CAT.id == 2;",
+		(err, data) => {
+			if (err) res.status(500).json(err);
+
+			res.status(200).json(data[0].depense);
 		}
 	);
 }
@@ -232,7 +262,9 @@ module.exports = {
 	addInvesstissement,
 	getDate,
 	getGraph1,
-	getKpi1,
+	getPatrimoine,
+	getRevenuMoy,
+	getDepenseMoy,
 };
 
 function onlyUnique(value, index, array) {
