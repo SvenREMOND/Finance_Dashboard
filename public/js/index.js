@@ -54,7 +54,7 @@ let datePicker = flatpickr("#selector", {
 		kpis.push(await createKpi("revenuMoy", "/data/kpi/revenu-moyen", dateStr, "currency"));
 		kpis.push(await createKpi("depenseMoy", "/data/kpi/depense-moyen", dateStr, "currency"));
 
-		graphs.push(await createGraph("repartitionPatrimoine", "/data/graph/1", dateStr));
+		graphs.push(await createGraph("repartitionPatrimoine", "/data/graph/evol-depense-revenu-etat", dateStr));
 	},
 	onClose: function (Dates, dateStr, instance) {
 		graphs.forEach(async (graph) => {

@@ -13,7 +13,7 @@ const {
 	addEtatCompte,
 	addInvesstissement,
 	getDate,
-	getGraph1,
+	getEvolDepenseRevenuEtat,
 	getPatrimoine,
 	getRevenuMoy,
 	getDepenseMoy,
@@ -105,9 +105,9 @@ app.get("/data/kpi/depense-moyen", (req, res) => {
 });
 
 // Donnée des graphs
-app.get("/data/graph/1", (req, res) => {
+app.get("/data/graph/evol-depense-revenu-etat", (req, res) => {
 	let data = req.query;
-	getGraph1(data.startDate, data.endDate, res);
+	getEvolDepenseRevenuEtat(data.startDate, data.endDate, res);
 });
 
 // URLs d'ajout de données

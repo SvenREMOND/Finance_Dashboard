@@ -151,13 +151,13 @@ function getDate(res) {
 	});
 }
 
-function getGraph1(startDate, endDate, res) {
+function getEvolDepenseRevenuEtat(startDate, endDate, res) {
 	db.all(
-		"SELECT T.date, T.montant, CAT.nom AS `categorie` FROM `TRANSACTION` T INNER JOIN `CATEGORIE` C ON T.categorie_id = C.id INNER JOIN `CATEGORIE` CAT ON C.parent_id = CAT.id WHERE strftime ('%s', T.date) BETWEEN strftime ('%s', '" +
+		"SELECT T.date, T.montant, CAT.nom AS `categorie` FROM `TRANSACTION` T INNER JOIN `CATEGORIE` C ON T.categorie_id = C.id INNER JOIN `CATEGORIE` CAT ON C.parent_id = CAT.id WHERE (strftime ('%s', T.date) BETWEEN strftime ('%s', '" +
 			startDate +
 			"') AND strftime  ('%s', '" +
 			endDate +
-			"') AND C.nom != 'Epargne' ORDER BY T.date ASC;",
+			"')) AND C.nom != 'Epargne' ORDER BY T.date ASC;",
 		(err, data) => {
 			if (err) res.status(500).json(err);
 			let result = {};
@@ -261,7 +261,7 @@ module.exports = {
 	addEtatCompte,
 	addInvesstissement,
 	getDate,
-	getGraph1,
+	getEvolDepenseRevenuEtat,
 	getPatrimoine,
 	getRevenuMoy,
 	getDepenseMoy,
