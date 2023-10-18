@@ -1,8 +1,8 @@
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("server/finance.sqlite");
 
-function getCategories(res) {
-	db.all("SELECT * FROM CATEGORIE;", (err, data) => {
+function getTransactionCategories(res) {
+	db.all("SELECT * FROM TRANSACTION_CATEGORIE;", (err, data) => {
 		if (err) res.status(500).json(err);
 
 		let categories = {};
@@ -23,9 +23,17 @@ function getCategories(res) {
 	});
 }
 
-function addCategorie(name, parent, res) {
+function getCompteCategories(res) {
+	db.all("SELECT * FROM COMPTE_CATEGORIE;", (err, data) => {
+		if (err) res.status(500).json(err);
+
+		res.status(200).json(data);
+	});
+}
+
+function addTransactionCategorie(name, parent, res) {
 	db.run(
-		"INSERT INTO CATEGORIE (nom, parent_id) VALUES ($name, $parent);",
+		"INSERT INTO TRANSACTION_CATEGORIE (nom, parent_id) VALUES ($name, $parent);",
 		{
 			$name: name,
 			$parent: parent,
@@ -38,20 +46,11 @@ function addCategorie(name, parent, res) {
 	);
 }
 
-function getCompte(res) {
-	db.all("SELECT * FROM COMPTE", (err, data) => {
-		if (err) res.status(500).json(err);
-
-		res.status(200).json(data);
-	});
-}
-
-function addCompte(name, desc, res) {
+function addCompteCategorie(name, res) {
 	db.run(
-		"INSERT INTO COMPTE (nom, description) VALUES ($name, $desc);",
+		"INSERT INTO COMPTE_CATEGORIE (nom) VALUES ($name);",
 		{
 			$name: name,
-			$desc: desc,
 		},
 		(err) => {
 			if (err) res.status(500).json(err);
@@ -61,84 +60,17 @@ function addCompte(name, desc, res) {
 	);
 }
 
-function getEpargne(res) {
-	db.all("SELECT * FROM EPARGNE", (err, data) => {
-		if (err) res.status(500).json(err);
-
-		res.status(200).json(data);
-	});
-}
-
-function addEpargne(name, desc, res) {
+function addCompte(name, cat, res) {
 	db.run(
-		"INSERT INTO EPARGNE (nom, description) VALUES ($name, $desc);",
+		"INSERT INTO COMPTE (nom, categorie_id) VALUES ($name, $cat);",
 		{
 			$name: name,
-			$desc: desc,
+			$cat: cat,
 		},
 		(err) => {
 			if (err) res.status(500).json(err);
 
 			res.redirect("/add-data");
-		}
-	);
-}
-
-function addTransaction(montant, date, cat, res) {
-	db.run(
-		"INSERT INTO 'TRANSACTION' (montant, date, categorie_id) VALUES ($montant, $date, $categorie);",
-		{
-			$montant: montant,
-			$date: date + "-01",
-			$categorie: cat,
-		},
-		(err) => {
-			if (err) res.status(500).json(err);
-
-			res.redirect("/add-data");
-		}
-	);
-}
-
-function addEtatCompte(montant, date, compte, res) {
-	db.run(
-		"INSERT INTO 'TRANSACTION' (montant, date, compte_id) VALUES ($montant, $date, $compte);",
-		{
-			$montant: montant,
-			$date: date + "-01",
-			$compte: compte,
-		},
-		(err) => {
-			if (err) res.status(500).json(err);
-
-			res.redirect("/add-data");
-		}
-	);
-}
-
-function addInvesstissement(epargne, valeur, date, invest, res) {
-	db.run(
-		"INSERT INTO 'TRANSACTION' (montant, date) VALUES ($montant, $date);",
-		{
-			$montant: valeur,
-			$date: date + "-01",
-		},
-		function (err) {
-			if (err) res.status(500).json(err);
-
-			db.run(
-				"INSERT INTO 'INVESTISSEMENT' (transaction_id, epargne_id, investi) VALUES ($transaction, $epargne, $investi);",
-				{
-					$transaction: this.lastID,
-					$epargne: epargne,
-					$investi: invest,
-				},
-				(err) => {
-					if (err) res.status(500).json(err);
-
-					res.redirect("/add-data");
-				}
-			);
 		}
 	);
 }
@@ -153,7 +85,7 @@ function getDate(res) {
 
 function getEvolDepenseRevenuEtat(startDate, endDate, res) {
 	db.all(
-		"SELECT T.date, T.montant, CAT.nom AS `categorie` FROM `TRANSACTION` T INNER JOIN `CATEGORIE` C ON T.categorie_id = C.id INNER JOIN `CATEGORIE` CAT ON C.parent_id = CAT.id WHERE (strftime ('%s', T.date) BETWEEN strftime ('%s', '" +
+		"SELECT T.date, T.montant, CAT.nom AS `categorie` FROM `TRANSACTION` T INNER JOIN `TRANSACTION_CATEGORIE` C ON T.categorie_id = C.id INNER JOIN `TRANSACTION_CATEGORIE` CAT ON C.parent_id = CAT.id WHERE (strftime ('%s', T.date) BETWEEN strftime ('%s', '" +
 			startDate +
 			"') AND strftime  ('%s', '" +
 			endDate +
@@ -209,7 +141,7 @@ function getEvolDepenseRevenuEtat(startDate, endDate, res) {
 
 function getPatrimoine(startDate, endDate, res) {
 	db.all(
-		"SELECT SUM(T.montant) AS 'patrimoine' FROM `TRANSACTION` T INNER JOIN `CATEGORIE` C ON T.categorie_id = C.id INNER JOIN `CATEGORIE` CAT ON C.parent_id = CAT.id WHERE strftime ('%s', T.date) == strftime ('%s', '" +
+		"SELECT SUM(T.montant) AS 'patrimoine' FROM `TRANSACTION` T INNER JOIN `TRANSACTION_CATEGORIE` C ON T.categorie_id = C.id INNER JOIN `TRANSACTION_CATEGORIE` CAT ON C.parent_id = CAT.id WHERE strftime ('%s', T.date) == strftime ('%s', '" +
 			endDate +
 			"') AND CAT.id == 3;",
 		(err, data) => {
@@ -222,7 +154,7 @@ function getPatrimoine(startDate, endDate, res) {
 
 function getRevenuMoy(startDate, endDate, res) {
 	db.all(
-		"SELECT AVG(T.montant) AS 'revenu' FROM `TRANSACTION` T INNER JOIN `CATEGORIE` C ON T.categorie_id = C.id INNER JOIN `CATEGORIE` CAT ON C.parent_id = CAT.id WHERE (strftime ('%s', T.date) BETWEEN strftime ('%s', '" +
+		"SELECT AVG(T.montant) AS 'revenu' FROM `TRANSACTION` T INNER JOIN `TRANSACTION_CATEGORIE` C ON T.categorie_id = C.id INNER JOIN `TRANSACTION_CATEGORIE` CAT ON C.parent_id = CAT.id WHERE (strftime ('%s', T.date) BETWEEN strftime ('%s', '" +
 			startDate +
 			"') AND strftime ('%s', '" +
 			endDate +
@@ -237,7 +169,7 @@ function getRevenuMoy(startDate, endDate, res) {
 
 function getDepenseMoy(startDate, endDate, res) {
 	db.all(
-		"SELECT AVG(T.montant) AS 'depense' FROM `TRANSACTION` T INNER JOIN `CATEGORIE` C ON T.categorie_id = C.id INNER JOIN `CATEGORIE` CAT ON C.parent_id = CAT.id WHERE (strftime ('%s', T.date) BETWEEN strftime ('%s', '" +
+		"SELECT AVG(T.montant) AS 'depense' FROM `TRANSACTION` T INNER JOIN `TRANSACTION_CATEGORIE` C ON T.categorie_id = C.id INNER JOIN `TRANSACTION_CATEGORIE` CAT ON C.parent_id = CAT.id WHERE (strftime ('%s', T.date) BETWEEN strftime ('%s', '" +
 			startDate +
 			"') AND strftime ('%s', '" +
 			endDate +
@@ -251,15 +183,11 @@ function getDepenseMoy(startDate, endDate, res) {
 }
 
 module.exports = {
-	getCategories,
-	addCategorie,
-	getCompte,
+	getTransactionCategories,
+	getCompteCategories,
+	addTransactionCategorie,
+	addCompteCategorie,
 	addCompte,
-	getEpargne,
-	addEpargne,
-	addTransaction,
-	addEtatCompte,
-	addInvesstissement,
 	getDate,
 	getEvolDepenseRevenuEtat,
 	getPatrimoine,

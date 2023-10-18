@@ -1,5 +1,5 @@
 CREATE TABLE
-    IF NOT EXISTS "CATEGORIE" (
+    IF NOT EXISTS "TRANSACTION_CATEGORIE" (
         "id" INTEGER PRIMARY KEY AUTOINCREMENT,
         "nom" TEXT NOT NULL,
         "parent_id" INTEGER,
@@ -7,36 +7,27 @@ CREATE TABLE
     );
 
 CREATE TABLE
-    IF NOT EXISTS "COMPTE" (
+    IF NOT EXISTS "COMPTE_CATEGORIE" (
         "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-        "nom" TEXT NOT NULL,
-        "description" TEXT
+        "nom" TEXT NOT NULL
     );
 
 CREATE TABLE
-    IF NOT EXISTS "EPARGNE" (
+    IF NOT EXISTS "COMPTE" ( -- Compte (courrants, coffres, pocket) + Epargne (livrets, ETFs, actions) 
         "id" INTEGER PRIMARY KEY AUTOINCREMENT,
         "nom" TEXT NOT NULL,
-        "description" TEXT
+        "categorie_id" INTEGER NOT NULL,
+        FOREIGN KEY ("categorie_id") REFERENCES "COMPTE_CATEGORIE" ("id")
     );
 
 CREATE TABLE
-    IF NOT EXISTS "TRANSACTION" (
+    IF NOT EXISTS "TRANSACTION" ( -- Dépenses, Revenus, État
         "id" INTEGER PRIMARY KEY AUTOINCREMENT,
         "montant" INTEGER NOT NULL,
         "date" TEXT NOT NULL,
+        "categorie_id" INTEGER NOT NULL,
         "compte_id" INTEGER,
-        "categorie_id" INTEGER,
-        FOREIGN KEY ("compte_id") REFERENCES "COMPTE" ("id"),
-        FOREIGN KEY ("categorie_id") REFERENCES "CATEGORIE" ("id")
-    );
-
-CREATE TABLE
-    IF NOT EXISTS "INVESTISSEMENT" (
-        "transaction_id" INTEGER NOT NULL,
-        "epargne_id" INTEGER NOT NULL,
-        "investi" INTEGER,
-        PRIMARY KEY ("transaction_id", "epargne_id"),
-        FOREIGN KEY ("transaction_id") REFERENCES "TRANSACTION" ("id"),
-        FOREIGN KEY ("epargne_id") REFERENCES "EPARGNE" ("id")
+        "investissement" INTEGER,
+        FOREIGN KEY ("categorie_id") REFERENCES "TRANSACTION_CATEGORIE" ("id"),
+        FOREIGN KEY ("compte_id") REFERENCES "COMPTE" ("id")
     );

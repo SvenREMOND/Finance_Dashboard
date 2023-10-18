@@ -213,39 +213,6 @@
 					</div>
 
 					<div class="field">
-						<input class="button" type="submit" value="Ajouter" />
-					</div>
-				</form>
-			</section>
-			<section>
-				<p class="label">État des comptes</p>
-				<form method="POST" action="/add-etat" enctype="application/x-www-form-urlencoded">
-					<div class="field">
-						<label class="required"> Compte </label>
-						<ul class="options compte--liste">
-							<!-- Li des différents comptes  -->
-						</ul>
-					</div>
-
-					<div class="field half">
-						<label class="required" for="etat_montant">Montant</label>
-						<input required type="number" name="etat_montant" id="etat_montant" autocomplete="off" />
-					</div>
-
-					<div class="field half">
-						<label class="required" for="etat_date">Date</label>
-						<input required type="month" name="etat_date" id="etat_date" pattern="\d{4}-(0\d|1\d)" placeholder="2023-10" />
-					</div>
-
-					<div class="field">
-						<input class="button" type="submit" value="Ajouter" />
-					</div>
-				</form>
-			</section>
-			<section>
-				<p class="label">Investissement</p>
-				<form method="POST" action="/add-investissement" enctype="application/x-www-form-urlencoded">
-					<div class="field">
 						<label class="required">Ligne</label>
 						<ul class="options epargne--liste">
 							<!-- Li des différents épargne  -->
@@ -253,57 +220,28 @@
 					</div>
 
 					<div class="field half">
-						<label class="required" for="invesstissement_valeur">Valeur</label>
-						<input required type="number" name="invesstissement_valeur" id="invesstissement_valeur" autocomplete="off" />
-					</div>
-
-					<div class="field half">
-						<label class="required" for="invesstissement_date">Date</label>
-						<input
-							required
-							type="month"
-							name="invesstissement_date"
-							id="invesstissement_date"
-							pattern="\d{4}-(0\d|1\d)"
-							placeholder="2023-10"
-						/>
-					</div>
-
-					<div class="field half">
 						<label for="invesstissement_montant">Montant investi</label>
 						<input type="number" name="invesstissement_montant" id="invesstissement_montant" />
 					</div>
 
-					<div class="field half">
+					<div class="field">
 						<input class="button" type="submit" value="Ajouter" />
 					</div>
 				</form>
 			</section>
 			<section>
-				<p class="label">Compte / Épargne</p>
+				<p class="label">Compte</p>
 				<form method="POST" action="/add-account" enctype="application/x-www-form-urlencoded" autocomplete="off">
-					<div class="field half">
-						<label class="required">Type</label>
-						<ul class="options">
-							<li class="option">
-								<input required class="option-input" type="radio" id="add_compte" name="add_account" value="add_compte" />
-								<label class="option-label" for="add_compte">Compte</label>
-							</li>
-							<li class="option">
-								<input required class="option-input" type="radio" id="add_epargne" name="add_account" value="add_epargne" />
-								<label class="option-label" for="add_epargne">Épargne</label>
-							</li>
-						</ul>
-					</div>
-
-					<div class="field half">
+					<div class="field">
 						<label for="add_nom" class="required">Nom</label>
 						<input required type="text" name="add_nom" id="add_nom" />
 					</div>
 
 					<div class="field">
-						<label for="add_description">Description</label>
-						<textarea name="add_description" id="add_description"></textarea>
+						<label for="compte_categorie required">Categorie</label>
+						<select required name="categorie" id="compte_categorie">
+							<option selected></option>
+						</select>
 					</div>
 
 					<div class="field">
@@ -312,8 +250,8 @@
 				</form>
 			</section>
 			<section>
-				<p class="label">Catégorie</p>
-				<form method="POST" action="/add-categorie" enctype="application/x-www-form-urlencoded" autocomplete="off">
+				<p class="label">Catégorie Transaction</p>
+				<form method="POST" action="/add-transaction-categorie" enctype="application/x-www-form-urlencoded" autocomplete="off">
 					<div class="field">
 						<label for="categorie_nom" class="required">Nom</label>
 						<input required type="text" name="categorie_nom" id="categorie_nom" />
@@ -324,6 +262,19 @@
 						<select name="categorie_parent" id="categorie_parent">
 							<option value="" selected></option>
 						</select>
+					</div>
+
+					<div class="field half">
+						<input class="button" type="submit" value="Ajouter" />
+					</div>
+				</form>
+			</section>
+			<section>
+				<p class="label">Catégorie Compte</p>
+				<form method="POST" action="/add-compte-categorie" enctype="application/x-www-form-urlencoded" autocomplete="off">
+					<div class="field half">
+						<label for="categorie_nom" class="required">Nom</label>
+						<input required type="text" name="categorie_nom" id="categorie_nom" />
 					</div>
 
 					<div class="field half">

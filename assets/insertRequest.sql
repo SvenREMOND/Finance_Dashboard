@@ -1,5 +1,5 @@
 INSERT INTO
-    'CATEGORIE' (nom, parent_id)
+    'TRANSACTION_CATEGORIE' (nom, parent_id)
 VALUES
     ("Revenu", NULL),
     ("Dépense", NULL),
@@ -18,10 +18,22 @@ VALUES
     ("Epargne", 3);
 
 INSERT INTO
-    'COMPTE' (nom, description)
+    'COMPTE_CATEGORIE' (nom)
 VALUES
-    ("LCL", "Compte courant"),
-    ("Revolut", "Compte courant"),
-    ("Facture", "Pocket Revolut"),
-    ("Economie", "Coffre Revolut"),
-    ("Arrondie", "Coffre Revolut");
+    ("Compte courant"),
+    ("Coffre"),
+    ("Pocket"),
+    ("Livret"),
+    ("ETF"),
+    ("Action");
+
+INSERT INTO
+    'COMPTE' (nom, categorie_id)
+VALUES
+    ("LCL", 1),
+    ("Revolut", 1),
+    ("Economie", 2),
+    ("Arrondie", 2),
+    ("Facture", 3),
+    ("Livret Jeune", 4),
+    ("Livret A", 4);

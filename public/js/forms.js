@@ -12,7 +12,7 @@ labels.forEach((label) => {
 });
 
 // Récupération et ajout des categories dans les formulaires
-let categories = await fetch("/get-categories");
+let categories = await fetch("/get-transaction-categories");
 categories = await categories.json();
 
 let transactionCategories = document.querySelector(".transaction--categories");
@@ -65,57 +65,21 @@ for (const parentId in categories) {
 	}
 }
 
-// Récupération et ajout des comptes dans les formulaires
-let comptes = await fetch("/get-comptes");
+// Récupération et ajout des categorie de comptes dans les formulaires
+let comptes = await fetch("/get-compte-categories");
 comptes = await comptes.json();
 
-let ulCompte = document.querySelector(".compte--liste");
-comptes.forEach((compte) => {
-	let li = document.createElement("li");
-	li.classList.add("option");
+let compteCategorieSelect = document.getElementById("compte_categorie");
+for (const id in comptes) {
+	if (Object.hasOwnProperty.call(comptes, id)) {
+		const compte = comptes[id];
 
-	let input = document.createElement("input");
-	input.classList.add("option-input");
-	input.type = "radio";
-	input.name = "etat_compte";
-	input.id = "etat_" + compte.nom;
-	input.value = compte.id;
-	li.append(input);
-
-	let label = document.createElement("label");
-	label.classList.add("option-label");
-	label.textContent = compte.nom;
-	label.setAttribute("for", "etat_" + compte.nom);
-	li.append(label);
-
-	ulCompte.append(li);
-});
-
-// Récupération et ajout des epargne dans les formulaires
-let epargnes = await fetch("/get-epargnes");
-epargnes = await epargnes.json();
-
-let ulEpargne = document.querySelector(".epargne--liste");
-epargnes.forEach((epargne) => {
-	let li = document.createElement("li");
-	li.classList.add("option");
-
-	let input = document.createElement("input");
-	input.classList.add("option-input");
-	input.type = "radio";
-	input.name = "invesstissement_compte";
-	input.id = "invesstissement_" + epargne.nom;
-	input.value = epargne.id;
-	li.append(input);
-
-	let label = document.createElement("label");
-	label.classList.add("option-label");
-	label.textContent = epargne.nom;
-	label.setAttribute("for", "invesstissement_" + epargne.nom);
-	li.append(label);
-
-	ulEpargne.append(li);
-});
+		let option = document.createElement("option");
+		option.value = compte.id;
+		option.text = compte.nom;
+		compteCategorieSelect.append(option);
+	}
+}
 
 // Focus des input
 class magicFocus {
